@@ -15,21 +15,15 @@ class CompaniesController
         return view('companies', compact('companies'));
     }
 
-    public function showSorted()
-    {
-        $companies = Company::show();
-        return view('companies.show', compact('companies'));
-    }
-
     public function create()
     {
-        $dane = [
+        $data = [
             'questions' => App::get('database')->selectAll('questions'),
             'answers' => App::get('database')->selectAll('answers'),
             'handlowcy' => User::traders()
         ];
 
-        return view("companies.add", compact('dane'));
+        return view("companies.add", compact('data'));
     }
 
     public function store()

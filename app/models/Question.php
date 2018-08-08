@@ -6,12 +6,12 @@ use App\Core\App;
 
 class Question
 {
-    public $tresc;
-    public $kolejnosc;
-    public $status;
-    public $kategoria;
-    public $odpowiedzi;
-    public $typOdpowiedzi;
+    protected $tresc;
+    protected $kolejnosc;
+    protected $status;
+    protected $kategoria;
+    protected $odpowiedzi;
+    protected $typOdpowiedzi;
 
     public function __construct($tresc, $kategoria, $kolejnosc, $status, $odpowiedzi, $typOdpowiedzi)
     {

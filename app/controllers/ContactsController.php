@@ -18,29 +18,29 @@ class ContactsController
 
     public function create()
     {
-        $dane = [
-          'companies' => $companies = Company::show(),
-          'handlowcy' => $handlowcy = User::traders()
+        $data = [
+          'companies' => Company::show(),
+          'traders' => User::traders()
         ];
 
-        return view('contacts.add', compact('dane'));
+        return view('contacts.add', compact('data'));
     }
 
     public function editForm()
     {
-        $dane = [
+        $data = [
             'companies' => $companies = Company::show(),
             'contact' => $contact = App::get('database')->select('contacts', 'id', $_GET['id'])
         ];
 
-        return view('contacts.edit', compact('dane'));
+        return view('contacts.edit', compact('data'));
     }
 
     public function store()
     {
         $file = new File($_FILES["image"], "uploads/", "uploads/" . basename($_FILES["image"]["name"]));
 
-        $kontakt = new Contact(
+        $contact = new Contact(
             $_POST['firma'],
             $_POST['name'],
             $_POST['stanowisko'],
@@ -52,7 +52,7 @@ class ContactsController
             $reklamy = (isset($_POST['reklamy'])) ? 1 : 0
         );
 
-        $kontakt->store();
+        $contact->store();
 
         return redirect('panel');
     }

@@ -20,12 +20,12 @@ class PagesController
 
     public function panel()
     {
-        $dane = [
+        $data = [
             'lastWeekUsers' => Trader::lastWeek(),
             'lastWeekCompanies' => Company::lastWeek()
         ];
 
-        return view('panel', compact('dane'));
+        return view('panel', compact('data'));
     }
 
 }

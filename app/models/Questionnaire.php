@@ -12,10 +12,10 @@ use App\Core\App;
 
 class Questionnaire
 {
-    public $radio;
-    public $check;
-    public $text;
-    public $handlowiec;
+    protected $radio;
+    protected $check;
+    protected $text;
+    protected $handlowiec;
 
     public function __construct($firma, $radio, $check, $text, $handlowiec)
     {

@@ -4,15 +4,13 @@ namespace App\Models;
 
 use App\Core\App;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
 
 class User
 {
-    public $name;
-    public $email;
-    public $password;
-    public $phoneNumber;
+    protected $name;
+    protected $email;
+    protected $password;
+    protected $phoneNumber;
 
     public function __construct($name, $email, $password, $phoneNumber)
     {
@@ -66,13 +64,12 @@ class User
         if (isset($user[0]->id)) {
             $mail = new PHPMailer(true);
 
-            $mail->isSMTP();// Set mailer to use SMTP
-            $mail->CharSet = "utf-8";// set charset to utf8
-            $mail->SMTPAuth = true;// Enable SMTP authentication
-            $mail->SMTPSecure = 'tls';// Enable TLS encryption, `ssl` also accepted
-
-            $mail->Host = 'smtp.gmail.com';// Specify main and backup SMTP servers
-            $mail->Port = 587;// TCP port to connect to
+            $mail->isSMTP();
+            $mail->CharSet = "utf-8";
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = 'tls';
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 587;
             $mail->SMTPOptions = array(
                 'ssl' => array(
                     'verify_peer' => false,
@@ -81,15 +78,15 @@ class User
                 )
             );
 
-            $mail->isHTML(true);// Set email format to HTML
+            $mail->isHTML(true);
 
-            $mail->Username = 'ddumel55@gmail.com';// SMTP username
-            $mail->Password = 'dumelu10';// SMTP password
+            $mail->Username = 'ddumel55@gmail.com';
+            $mail->Password = 'dumelu10';
 
-            $mail->setFrom('ddumel55@gmail.com', 'Sklep Komputerowy');//Your application NAME and EMAIL
+            $mail->setFrom('ddumel55@gmail.com', 'Sklep Komputerowy');
             $mail->Subject = 'Reset hasła';//Message subject
-            $mail->MsgHTML("http://nauka.com/reset?id={$user[0]->id}");// Message body
-            $mail->addAddress("{$user[0]->email}", 'Dominik');// Target email
+            $mail->MsgHTML("http://nauka.com/reset?id={$user[0]->id}");
+            $mail->addAddress("{$user[0]->email}", 'Dominik');
 
 
             if (!$mail->send()) {

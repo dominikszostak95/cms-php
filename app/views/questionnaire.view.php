@@ -1,7 +1,7 @@
- <?php foreach ($dane['questions'] as $question) : ?>
+ <?php foreach ($data['questions'] as $question) : ?>
      <div class="form-group">
                     <label for="tresc"> <?= $question->tresc ?> </label>
-                    <?php foreach ($dane['answers'] as $answer) : ?>
+                    <?php foreach ($data['answers'] as $answer) : ?>
                         <?php if ($question->id == $answer->id_pytania) : ?>
                             <?php if ($answer->typ == 1) : ?>
                                 <input type="radio" name="radio[<?= $question->id ?>]" value="<?= $answer->id ?>"> <?= $answer->tresc ?>

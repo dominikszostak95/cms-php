@@ -41,7 +41,7 @@
             <div class="form-group">
                 <select name="handlowiec">
                     <?php if ($_SESSION['role_id'] == 1) : ?>
-                        <?php foreach ($dane['handlowcy'] as $handlowiec) : ?>
+                        <?php foreach ($data['handlowcy'] as $handlowiec) : ?>
                             <option value="<?= $handlowiec->id ?>"><?= $handlowiec->name ?></option>
                         <?php endforeach; ?>
                     <?php else : ?>

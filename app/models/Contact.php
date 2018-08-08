@@ -6,15 +6,15 @@ use App\Core\App;
 
 class Contact
 {
-    public $firma;
-    public $name;
-    public $stanowisko;
-    public $telefon;
-    public $email;
-    public $zdjecie;
-    public $handlowiec;
-    public $przetwarzanie;
-    public $reklamy;
+    protected $firma;
+    protected $name;
+    protected $stanowisko;
+    protected $telefon;
+    protected $email;
+    protected $zdjecie;
+    protected $handlowiec;
+    protected $przetwarzanie;
+    protected $reklamy;
 
     public function __construct($firma, $name, $stanowisko, $telefon, $email, $zdjecie, $handlowiec, $przetw, $reklamy)
     {

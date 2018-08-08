@@ -6,12 +6,12 @@ use App\Core\App;
 
 class Photo
 {
-    public $nazwa;
-    public $plik;
-    public $handlowiec;
-    public $typ;
-    public $sciezka;
-    public $status;
+    protected $nazwa;
+    protected $plik;
+    protected $handlowiec;
+    protected $typ;
+    protected $sciezka;
+    protected $status;
 
 
     public function __construct($nazwa, $plik, $handlowiec, $typ, $sciezka, $status)

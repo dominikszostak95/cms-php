@@ -10,7 +10,7 @@
             <div class="form-group">
                 <label for="firma">Firma:</label>
                 <select name="firma">
-                    <?php foreach ($dane['companies'] as $company) : ?>
+                    <?php foreach ($data['companies'] as $company) : ?>
                         <option value="<?= $company->id ?>"> <?= $company->nazwa ?> </option>
                     <?php endforeach; ?>
                 </select>
@@ -43,7 +43,7 @@
             <div class="form-group">
                 <select name="handlowiec">
                     <?php if ($_SESSION['role_id'] == 1) : ?>
-                        <?php foreach ($dane['handlowcy'] as $handlowiec) : ?>
+                        <?php foreach ($data['traders'] as $handlowiec) : ?>
                             <option value="<?= $handlowiec->id ?>"><?= $handlowiec->name ?></option>
                         <?php endforeach; ?>
                     <?php else : ?>

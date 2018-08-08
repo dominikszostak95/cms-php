@@ -6,15 +6,15 @@ use App\Core\App;
 
 class Company
 {
-    public $nazwa;
-    public $adres;
-    public $miasto;
-    public $nip;
-    public $kraj;
-    public $email;
-    public $handlowiec;
-    public $przetwarzanie;
-    public $reklamy;
+    protected $nazwa;
+    protected $adres;
+    protected $miasto;
+    protected $nip;
+    protected $kraj;
+    protected $email;
+    protected $handlowiec;
+    protected $przetwarzanie;
+    protected $reklamy;
 
     public function __construct($nazwa, $adres, $miasto, $nip, $kraj, $email, $handlowiec, $przetwarzanie, $reklamy)
     {

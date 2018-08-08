@@ -7,11 +7,11 @@ use App\Core\App;
 
 class Trader
 {
-    public $rola;
-    public $name;
-    public $email;
-    public $password;
-    public $phoneNumber;
+    protected $rola;
+    protected $name;
+    protected $email;
+    protected $password;
+    protected $phoneNumber;
 
     public function __construct($rola, $name, $email, $password, $phoneNumber)
     {
