@@ -22,12 +22,12 @@ class QuestionsController
 
     public function store()
     {
-        $kolejnosc = App::get('database')->lastRecord('questions');
+        $last = App::get('database')->lastRecord('questions');
 
         $question = new Question(
             $_POST['tresc'],
             $_POST['kategoria'],
-            (empty($kolejnosc)) ? 1 : ++$kolejnosc[0]->id,
+            (empty($last)) ? 1 : ++$last[0]->id,
             $_POST['status'],
             $_POST['input_field'],
             $_POST['typ']
@@ -54,12 +54,12 @@ class QuestionsController
 
     public function editForm()
     {
-        $dane = [
+        $data = [
             'question' => App::get('database')->select('questions', 'id', $_GET['id']),
             'answers' => App::get('database')->select('answers', 'id_pytania', $_GET['id'])
         ];
 
-        return view('questions.edit', compact('dane'));
+        return view('questions.edit', compact('data'));
     }
 
     public function delete()

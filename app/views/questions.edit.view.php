@@ -15,19 +15,19 @@
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select name="status">
-                    <option <?php if ($dane['question'][0]->status == 1) { ?> selected="selected" <?php } ?> value="1">Włączone</option>
-                    <option <?php if ($dane['question'][0]->status == 2) { ?> selected="selected" <?php } ?> value="2">Wyłączone</option>
+                    <option <?php if ($data['question'][0]->status == 1) { ?> selected="selected" <?php } ?> value="1">Włączone</option>
+                    <option <?php if ($data['question'][0]->status == 2) { ?> selected="selected" <?php } ?> value="2">Wyłączone</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="tresc">Treść:</label>
-                <input type="text" class="form-control" id="tresc" name="tresc" maxlength="50" value="<?= $dane['question'][0]->tresc ?>" required>
+                <input type="text" class="form-control" id="tresc" name="tresc" maxlength="50" value="<?= $data['question'][0]->tresc ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="odpowiedzi">Odpowiedzi: </label>
-                <?php foreach ($dane['answers'] as $answer) : ?>
+                <?php foreach ($data['answers'] as $answer) : ?>
                     <input type="hidden" class="form-control" name="id[]" id="id" value="<?= $answer->id ?>"/>
                     <input type="text" class="form-control" id="text" name="text[]" maxlength="100" value ="<?= $answer->tresc ?>" required><br>
                 <?php endforeach; ?>

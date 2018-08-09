@@ -9,7 +9,7 @@
 
             <div class="form-group">
                 <select name="firma" id="firma">
-                    <?php foreach ($dane['companies'] as $company) : ?>
+                    <?php foreach ($data['companies'] as $company) : ?>
                         <option value="<?= $company->id ?>"><?= $company->nazwa ?></option>
                     <?php endforeach; ?>
                 </select>

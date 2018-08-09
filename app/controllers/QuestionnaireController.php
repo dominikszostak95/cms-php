@@ -9,40 +9,39 @@ class QuestionnaireController
 {
     public function show()
     {
-
-        $dane = [
+        $data = [
             'companies' => App::get('database')->selectAll('companies'),
             'answers' => App::get('database')->selectAll('answers')
         ];
 
 
-        return view('results', compact('dane'));
+        return view('results', compact('data'));
     }
 
     public function showka()
     {
         $idFirmy = $_GET['id'];
 
-        $dane = [
+        $data = [
             'questions' => App::get('database')->selectAll('questions'),
             'answers' => App::get('database')->selectAll('answers'),
             'users_answers' => Questionnaire::usersAnswers($idFirmy),
             'text_answers' => Questionnaire::textAnswers($idFirmy)
         ];
-        return view('results.show', compact('dane'));
+        return view('results.show', compact('data'));
     }
 
     public function showQuestions()
     {
         $idFirmy = $_POST['firma'];
 
-        $dane = [
+        $data = [
             'questions' => App::get('database')->selectAll('questions'),
             'answers' => App::get('database')->selectAll('answers'),
             'users_answers' => Questionnaire::usersAnswers($idFirmy),
             'text_answers' => Questionnaire::textAnswers($idFirmy)
         ];
 
-        return view('results.show', compact('dane'));
+        return view('results.show', compact('data'));
     }
 }
