@@ -9,12 +9,22 @@ use App\Core\App;
 
 class CompaniesController
 {
+    /**
+     * Fetch all companies from database and display them in view.
+     *
+     * @return mixed
+     */
     public function show()
     {
         $companies = Company::show();
         return view('companies', compact('companies'));
     }
 
+    /**
+     * Fetch required data from database and display company adding form.
+     *
+     * @return mixed
+     */
     public function create()
     {
         $data = [
@@ -26,6 +36,12 @@ class CompaniesController
         return view("companies.add", compact('data'));
     }
 
+
+    /**
+     * Create new company with data from POST request.
+     *
+     * @return redirect
+     */
     public function store()
     {
         $company = new Company(
@@ -55,12 +71,23 @@ class CompaniesController
         return redirect('panel');
     }
 
+
+    /**
+     * Fetch specified by id in GET request company from database and display edit form.
+     *
+     * @return mixed
+     */
     public function editForm()
     {
         $company = App::get('database')->select('companies', 'id', $_GET['id']);
         return view('companies.edit', compact('company'));
     }
 
+    /**
+     * Update specified company in database with data from POST request.
+     *
+     * @return redirect
+     */
     public function edit()
     {
         $parametrs = [
@@ -78,6 +105,11 @@ class CompaniesController
         return redirect('panel');
     }
 
+    /**
+     * Delete specified company or all companies.
+     *
+     * @return redirect
+     */
     public function delete()
     {
         ($_POST['usun'] == 1) ?  Company::delete($_POST['checkbox']) : App::get('database')->deleteAll('companies');

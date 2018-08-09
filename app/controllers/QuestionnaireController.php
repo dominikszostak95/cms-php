@@ -7,6 +7,11 @@ use App\Models\Questionnaire;
 
 class QuestionnaireController
 {
+    /**
+     * Fetch all companies with answer display it in select box where we cane choose one company.
+     *
+     * @return mixed
+     */
     public function show()
     {
         $data = [
@@ -14,10 +19,14 @@ class QuestionnaireController
             'answers' => App::get('database')->selectAll('answers')
         ];
 
-
         return view('results', compact('data'));
     }
 
+    /**
+     * Fetch all answers for specified company and display it as form.
+     *
+     * @return mixed
+     */
     public function showka()
     {
         $idFirmy = $_GET['id'];
@@ -31,17 +40,6 @@ class QuestionnaireController
         return view('results.show', compact('data'));
     }
 
-    public function showQuestions()
-    {
-        $idFirmy = $_POST['firma'];
 
-        $data = [
-            'questions' => App::get('database')->selectAll('questions'),
-            'answers' => App::get('database')->selectAll('answers'),
-            'users_answers' => Questionnaire::usersAnswers($idFirmy),
-            'text_answers' => Questionnaire::textAnswers($idFirmy)
-        ];
 
-        return view('results.show', compact('data'));
-    }
 }

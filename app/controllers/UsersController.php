@@ -6,6 +6,11 @@ use App\Models\User;
 
 class UsersController
 {
+    /**
+     * Create new user with data from POST request.
+     *
+     * @return redirect
+     */
     public function store()
     {
         $user = new User(

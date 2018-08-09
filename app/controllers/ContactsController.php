@@ -10,12 +10,22 @@ use App\Core\App;
 
 class ContactsController
 {
+    /**
+     * Fetch all contacts from database or only specified if it is GET request.
+     *
+     * @return mixed
+     */
     public function show()
     {
         (isset($_GET['id'])) ? $contacts = Contact::showByCompany($_GET['id']) : $contacts = Contact::show();
         return view('contacts', compact('contacts'));
     }
 
+    /**
+     * Fetch required data from database and display contact adding form.
+     *
+     * @return mixed
+     */
     public function create()
     {
         $data = [
@@ -26,16 +36,11 @@ class ContactsController
         return view('contacts.add', compact('data'));
     }
 
-    public function editForm()
-    {
-        $data = [
-            'companies' => $companies = Company::show(),
-            'contact' => $contact = App::get('database')->select('contacts', 'id', $_GET['id'])
-        ];
-
-        return view('contacts.edit', compact('data'));
-    }
-
+    /**
+     * Create new contact with data from POST request.
+     *
+     * @return redirect
+     */
     public function store()
     {
         $file = new File($_FILES["image"], "uploads/", "uploads/" . basename($_FILES["image"]["name"]));
@@ -57,12 +62,26 @@ class ContactsController
         return redirect('panel');
     }
 
-    public function delete()
+    /**
+     * Fetch specified by id in GET request contact from database and display edit form.
+     *
+     * @return mixed
+     */
+    public function editForm()
     {
-        ($_POST['usun'] == 1) ?  Contact::delete($_POST['checkbox']) : App::get('database')->deleteAll('contacts');
-        return redirect('panel');
+        $data = [
+            'companies' => $companies = Company::show(),
+            'contact' => $contact = App::get('database')->select('contacts', 'id', $_GET['id'])
+        ];
+
+        return view('contacts.edit', compact('data'));
     }
 
+    /**
+     * Update specified company in database with data from POST request.
+     *
+     * @return redirect
+     */
     public function edit()
     {
         $parametrs = [
@@ -79,4 +98,17 @@ class ContactsController
 
         return redirect('panel');
     }
+
+    /**
+     * Delete specified company or all contacts.
+     *
+     * @return redirect
+     */
+    public function delete()
+    {
+        ($_POST['usun'] == 1) ?  Contact::delete($_POST['checkbox']) : App::get('database')->deleteAll('contacts');
+        return redirect('panel');
+    }
+
+
 }

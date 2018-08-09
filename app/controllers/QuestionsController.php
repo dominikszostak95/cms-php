@@ -8,18 +8,33 @@ use App\Core\App;
 
 class QuestionsController
 {
+    /**
+     * Fetch all questions from database.
+     *
+     * @return mixed
+     */
     public function show()
     {
         $questions = Question::showQuestions();
         return view('questions', compact('questions'));
     }
 
+    /**
+     * Fetch required data from database and display question adding form.
+     *
+     * @return mixed
+     */
     public function create()
     {
         $categories = Question::showCategories();
         return view('questions.add', compact('categories'));
     }
 
+    /**
+     * Create new question with data from POST request.
+     *
+     * @return redirect
+     */
     public function store()
     {
         $last = App::get('database')->lastRecord('questions');
@@ -38,6 +53,11 @@ class QuestionsController
         return redirect('panel');
     }
 
+    /**
+     * Update specified question in database with data from POST request.
+     *
+     * @return redirect
+     */
     public function edit()
     {
         $parametrs = [
@@ -52,6 +72,11 @@ class QuestionsController
         return redirect('panel');
     }
 
+    /**
+     * Fetch specified by id in GET request question from database and display edit form.
+     *
+     * @return mixed
+     */
     public function editForm()
     {
         $data = [
@@ -62,6 +87,11 @@ class QuestionsController
         return view('questions.edit', compact('data'));
     }
 
+    /**
+     * Delete specified question or all questions.
+     *
+     * @return redirect
+     */
     public function delete()
     {
         ($_POST['usun'] == 1) ?  Question::delete($_POST['checkbox']) : App::get('database')->deleteAll('questions');
