@@ -9,8 +9,8 @@
         <form method="POST" action="/photos/edit">
 
             <div class="form-group">
-                <label for="nazwa">Nazwa:</label>
-                <input type="text" class="form-control" id="nazwa" name="nazwa" maxlength="50" value="<?= $photo[0]->nazwa ?>" required>
+                <label for="name">Nazwa:</label>
+                <input type="text" class="form-control" id="name" name="name" maxlength="50" value="<?= $photo[0]->name ?>" required>
             </div>
 
             <div class="form-group">

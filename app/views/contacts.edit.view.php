@@ -8,14 +8,14 @@
         <h3>Edytuj kontakt</h3>
         <form method="POST" action="/contacts/edit">
             <div class="form-group">
-                <input type="hidden" class="form-control" name="data" id="data" value="<?= $_GET['id'] ?>"/>
+                <input type="hidden" class="form-control" name="id" id="id" value="<?= $_GET['id'] ?>"/>
             </div>
 
             <div class="form-group">
                 <label for="firma">Firma:</label>
-                <select name="firma">
+                <select name="company">
                     <?php foreach ($data['companies'] as $company) : ?>
-                        <option <?php if ($company->id == $data['contact'][0]->company_id) { ?> selected="selected" <?php } ?> value="<?= $company->id ?>"> <?= $company->nazwa ?> </option>
+                        <option <?php if ($company->id == $data['contact'][0]->company_id) { ?> selected="selected" <?php } ?> value="<?= $company->id ?>"> <?= $company->cname ?> </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -27,7 +27,7 @@
 
             <div class="form-group">
                 <label for="telefon">Telefon:</label>
-                <input type="text" class="form-control" id="telefon" name="telefon" pattern="[0-9]+" value="<?= $data['contact'][0]->telefon ?>" maxlength="15" required>
+                <input type="text" class="form-control" id="phone" name="phone" pattern="[0-9]+" value="<?= $data['contact'][0]->phone ?>" maxlength="15" required>
             </div>
 
             <div class="form-group">
@@ -36,8 +36,8 @@
             </div>
 
             <div class="form-group">
-                <input type="checkbox" name="dane" value="tak" <?php if ($data['contact'][0]->przetwarzanie == 1) { ?> checked <?php } ?>>Zgoda na przetwarzanie danych osobowych<br>
-                <input type="checkbox" name="reklamy" value="tak" <?php if ($data['contact'][0]->reklamy == 1) { ?> checked <?php } ?>>Zgoda na otrzymywanie materiałów reklamowych
+                <input type="checkbox" name="processing" value="tak" <?php if ($data['contact'][0]->processing == 1) { ?> checked <?php } ?>>Zgoda na przetwarzanie danych osobowych<br>
+                <input type="checkbox" name="ads" value="tak" <?php if ($data['contact'][0]->ads == 1) { ?> checked <?php } ?>>Zgoda na otrzymywanie materiałów reklamowych
             </div>
 
             <div class="form-group">

@@ -9,8 +9,8 @@
         <form method="POST" action="/traders/add">
 
             <div class="form-group">
-                <label for="grupa">Grupa:</label>
-                <select name="grupa">
+                <label for="role">Grupa:</label>
+                <select name="role">
                         <option value="2">Handlowiec</option>
                         <option value="1">Administrator</option>
                 </select>

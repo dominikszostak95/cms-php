@@ -30,7 +30,7 @@ class CompaniesController
         $data = [
             'questions' => App::get('database')->selectAll('questions'),
             'answers' => App::get('database')->selectAll('answers'),
-            'handlowcy' => User::traders()
+            'traders' => User::traders()
         ];
 
         return view("companies.add", compact('data'));
@@ -45,32 +45,31 @@ class CompaniesController
     public function store()
     {
         $company = new Company(
-            $_POST['nazwa'],
-            $_POST['adres'],
-            $_POST['miasto'],
+            $_POST['cname'],
+            $_POST['address'],
+            $_POST['city'],
             $_POST['nip'],
-            $_POST['kraj'],
+            $_POST['country'],
             $_POST['email'],
-            $_POST['handlowiec'],
-            $przetwarzanie = (isset($_POST['dane'])) ? 1 : 0,
-            $reklamy = (isset($_POST['reklamy'])) ? 1 : 0
+            $_POST['trader'],
+            $processing = (isset($_POST['processing'])) ? 1 : 0,
+            $ads = (isset($_POST['ads'])) ? 1 : 0
         );
 
         $company->store();
 
         $questionnaire = new Questionnaire(
-            $_POST['nazwa'],
+            $_POST['cname'],
             $_POST['radio'],
             $_POST['check'],
             $_POST['text'],
-            $_POST['handlowiec']
+            $_POST['trader']
         );
 
         $questionnaire->store();
 
         return redirect('panel');
     }
-
 
     /**
      * Fetch specified by id in GET request company from database and display edit form.
@@ -91,14 +90,15 @@ class CompaniesController
     public function edit()
     {
         $parametrs = [
-            'nazwa' => $_POST['nazwa'],
-            'adres' => $_POST['adres'],
-            'miasto' => $_POST['miasto'],
+            'id' => $_POST['id'],
+            'cname' => $_POST['cname'],
+            'address' => $_POST['address'],
+            'city' => $_POST['city'],
             'nip' => $_POST['nip'],
-            'kraj' => $_POST['kraj'],
+            'country' => $_POST['country'],
             'email' => $_POST['email'],
-            'przetwarzanie' => (isset($_POST['dane'])) ? 1 : 0,
-            'reklamy' => (isset($_POST['reklamy'])) ? 1 : 0
+            'processing' => (isset($_POST['processing'])) ? 1 : 0,
+            'ads' => (isset($_POST['ads'])) ? 1 : 0
         ];
 
         Company::edit($parametrs);
@@ -112,7 +112,7 @@ class CompaniesController
      */
     public function delete()
     {
-        ($_POST['usun'] == 1) ?  Company::delete($_POST['checkbox']) : App::get('database')->deleteAll('companies');
+        ($_POST['delete'] == 1) ?  Company::delete($_POST['checkbox']) : App::get('database')->deleteAll('companies');
         return redirect('panel');
     }
 }

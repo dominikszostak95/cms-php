@@ -8,14 +8,14 @@
         <h3>Firmy: </h3>
         <table>
             <form method="POST" action="/companies/delete">
-                <select name="usun">
+                <select name="delete">
                     <option value="1">Usuń zaznaczone</option>
                     <option value="2">Usuń wszystkie</option>
                 </select>
-                <input type="submit" name="delete" value="Wykonaj"/>
+                <input type="submit" name="wykonaj" value="Wykonaj"/>
                 <tr>
                     <td> </td>
-                    <td>ID</td>	<td>Nazwa firmy</td>
+                    <td>ID</td> <td>Nazwa firmy</td>
                     <td>Kontakt</td> <td>E-mail</td>
                     <td>Data utworzenia</td> <td>Handlowiec</td>
                     <td> </td>
@@ -23,7 +23,7 @@
                 <?php foreach ($companies as $company) : ?>
                     <tr>
                         <td> <input type="checkbox" name="checkbox[]" value="<?= $company->id ?>"></td>
-                        <td><?= $company->id ?></td> <td><?= $company->nazwa ?></td>
+                        <td><?= $company->id ?></td> <td><?= $company->cname ?></td>
                         <td><a href="/contacts?id=<?= $company->id ?>">klik</a></td> <td><?= $company->email ?></td>
                         <td><?= $company->created_at ?></td> <td><?= $company->name ?></td>
                         <td><a href="/companies/edit?id=<?= $company->id ?>">Edytuj</a></td>

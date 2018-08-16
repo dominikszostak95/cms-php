@@ -21,15 +21,15 @@
             </div>
 
             <div class="form-group">
-                <label for="tresc">Treść:</label>
-                <input type="text" class="form-control" id="tresc" name="tresc" maxlength="50" value="<?= $data['question'][0]->tresc ?>" required>
+                <label for="content">Treść:</label>
+                <input type="text" class="form-control" id="content" name="content" maxlength="50" value="<?= $data['question'][0]->content ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="odpowiedzi">Odpowiedzi: </label>
                 <?php foreach ($data['answers'] as $answer) : ?>
                     <input type="hidden" class="form-control" name="id[]" id="id" value="<?= $answer->id ?>"/>
-                    <input type="text" class="form-control" id="text" name="text[]" maxlength="100" value ="<?= $answer->tresc ?>" required><br>
+                    <input type="text" class="form-control" id="text" name="text[]" maxlength="100" value ="<?= $answer->content ?>" required><br>
                 <?php endforeach; ?>
             </div>
 

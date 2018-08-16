@@ -9,10 +9,10 @@
         <form method="POST" action="/photos/add" enctype="multipart/form-data">
 
             <div class="form-group">
-                <select name="handlowiec">
+                <select name="trader">
                     <?php if ($_SESSION['role_id'] == 1) : ?>
-                        <?php foreach ($traders as $handlowiec) : ?>
-                            <option value="<?= $handlowiec->id ?>"><?= $handlowiec->name ?></option>
+                        <?php foreach ($traders as $trader) : ?>
+                            <option value="<?= $trader->id ?>"><?= $trader->name ?></option>
                         <?php endforeach; ?>
                     <?php else : ?>
                             <option value="<?= $_SESSION['id'] ?>"><?= $_SESSION['name'] ?></option>
@@ -21,8 +21,8 @@
             </div>
 
             <div class="form-group">
-                <label for="nazwa">Nazwa:</label>
-                <input type="text" class="form-control" id="nazwa" name="nazwa" maxlength="100" required>
+                <label for="name">Nazwa:</label>
+                <input type="text" class="form-control" id="name" name="name" maxlength="100" required>
             </div>
 
             <div class="form-group">

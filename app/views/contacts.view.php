@@ -8,11 +8,11 @@
         <h3>Kontakty: </h3>
         <table>
             <form method="POST" action="/contacts/delete">
-                <select name="usun">
+                <select name="delete">
                     <option value="1">Usuń zaznaczone</option>
                     <option value="2">Usuń wszystkie</option>
                 </select>
-                <input type="submit" name="delete" value="Wykonaj"/>
+                <input type="submit" name="wykonaj" value="Wykonaj"/>
             <tr>
                 <td> </td>
                 <td>ID</td>	<td>Nazwa firmy</td>
@@ -23,9 +23,9 @@
             <?php foreach ($contacts as $contact) : ?>
                 <tr>
                     <td> <input type="checkbox" name="checkbox[]" value="<?= $contact->id ?>"> </td>
-                    <td><?= $contact->id ?></td> <td><?= $contact->nazwa ?></td>
-                    <td><?= $contact->cName ?></td> <td><?= $contact->telefon ?></td>
-                    <td><?= $contact->created_at ?></td> <td><?= $contact->uName ?></td>
+                    <td><?= $contact->id ?></td> <td><?= $contact->cname ?></td>
+                    <td><?= $contact->fullname ?></td> <td><?= $contact->phone ?></td>
+                    <td><?= $contact->created_at ?></td> <td><?= $contact->username ?></td>
                     <td><a href=/contacts/edit?id=<?= $contact->id ?>>Edytuj</a></td>
                 </tr>
             <?php endforeach; ?>

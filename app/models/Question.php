@@ -6,21 +6,21 @@ use App\Core\App;
 
 class Question
 {
-    protected $tresc;
-    protected $kolejnosc;
-    protected $status;
-    protected $kategoria;
-    protected $odpowiedzi;
-    protected $typOdpowiedzi;
+    private $content;
+    private $order;
+    private $status;
+    private $category;
+    private $answers;
+    private $answersType;
 
-    public function __construct($tresc, $kategoria, $kolejnosc, $status, $odpowiedzi, $typOdpowiedzi)
+    public function __construct($content, $category, $order, $status, $answers, $answersType)
     {
-        $this->tresc = $tresc;
-        $this->kategoria = $kategoria;
-        $this->kolejnosc = $kolejnosc;
+        $this->content = $content;
+        $this->category = $category;
+        $this->order = $order;
         $this->status = $status;
-        $this->odpowiedzi = $odpowiedzi;
-        $this->typOdpowiedzi = $typOdpowiedzi;
+        $this->answers = $answers;
+        $this->answersType = $answersType;
     }
 
     public static function showQuestions()
@@ -42,8 +42,9 @@ class Question
 
     public static function edit($parametrs)
     {
-        $sql = "update questions set tresc = '{$parametrs['tresc']}', status = {$parametrs['status']} 
+        $sql = "update questions set content = '{$parametrs['content']}', status = {$parametrs['status']} 
                 where id = {$parametrs['id']}";
+
 
         App::get('database')->executeUpdate($sql);
     }
@@ -52,7 +53,7 @@ class Question
     {
         $x = 0;
         foreach ($id as $id) {
-            $sql = "update answers set tresc = '{$answer[$x]}' where id = {$id} ";
+            $sql = "update answers set content = '{$answer[$x]}' where id = {$id} ";
             App::get('database')->executeUpdate($sql);
             $x++;
         }
@@ -61,19 +62,19 @@ class Question
     public function store()
     {
         App::get('database')->insert('questions', [
-            'tresc' => "'{$this->tresc}'",
-            'kategoria' => $this->kategoria,
-            'kolejnosc' => $this->kolejnosc,
+            'content' => "'{$this->content}'",
+            'category' => $this->category,
+            'orderr' => $this->order,
             'status' => $this->status
         ]);
 
         $id = App::get('database')->lastRecord('questions');
 
-        foreach ($this->odpowiedzi as $odpowiedz) {
+        foreach ($this->answers as $answer) {
             App::get('database')->insert('answers', [
-                'id_pytania' => $id[0]->id,
-                'tresc' => "'{$odpowiedz}'",
-                'typ' => $this->typOdpowiedzi,
+                'answer_id' => $id[0]->id,
+                'content' => "'{$answer}'",
+                'type' => $this->answersType,
             ]);
         }
     }

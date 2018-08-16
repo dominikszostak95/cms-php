@@ -7,25 +7,42 @@ use App\Core\App;
 
 class Trader
 {
-    protected $rola;
-    protected $name;
-    protected $email;
-    protected $password;
-    protected $phoneNumber;
+    private $role;
+    private $name;
+    private $email;
+    private $password;
+    private $phoneNumber;
 
-    public function __construct($rola, $name, $email, $password, $phoneNumber)
+    public function __construct($role, $name, $email, $password, $phoneNumber)
     {
-        $this->rola = $rola;
+        $this->role = $role;
         $this->name = $name;
         $this->email = $email;
         $this->password = password_hash($password, PASSWORD_BCRYPT);
         $this->phoneNumber = $phoneNumber;
     }
 
+    public function store()
+    {
+        App::get('database')->insert('users', [
+            'role_id' => $this->role,
+            'name' => "'{$this->name}'",
+            'email' => "'{$this->email}'",
+            'password' => "'{$this->password}'",
+            'phone_number' => "'{$this->phoneNumber}'",
+            'created_at' => 'NOW()'
+        ]);
+    }
+
+    public function nameById($id)
+    {
+        return App::get('database')->select('users', 'id', $id);
+    }
+
     public static function edit($parametrs)
     {
         $sql = "update users set role_id = '{$parametrs['role_id']}', name = '{$parametrs['name']}', 
-                phone_number = '{$parametrs['telefon']}', email = '{$parametrs['email']}'
+                phone_number = '{$parametrs['phone']}', email = '{$parametrs['email']}'
                 where id = {$parametrs['id']};";
 
         App::get('database')->executeUpdate($sql);
@@ -43,22 +60,5 @@ class Trader
         foreach ($rows as $row) {
             App::get('database')->delete('users', $row);
         }
-    }
-
-    public function store()
-    {
-        App::get('database')->insert('users', [
-            'role_id' => $this->rola,
-            'name' => "'{$this->name}'",
-            'email' => "'{$this->email}'",
-            'password' => "'{$this->password}'",
-            'phone_number' => "'{$this->phoneNumber}'",
-            'created_at' => 'NOW()'
-        ]);
-    }
-
-    public function nameById($id)
-    {
-        return App::get('database')->select('users', 'id', $id);
     }
 }

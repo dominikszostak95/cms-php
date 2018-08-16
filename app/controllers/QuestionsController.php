@@ -40,12 +40,12 @@ class QuestionsController
         $last = App::get('database')->lastRecord('questions');
 
         $question = new Question(
-            $_POST['tresc'],
-            $_POST['kategoria'],
+            $_POST['content'],
+            $_POST['category'],
             (empty($last)) ? 1 : ++$last[0]->id,
             $_POST['status'],
             $_POST['input_field'],
-            $_POST['typ']
+            $_POST['type']
         );
 
         $question->store();
@@ -62,7 +62,7 @@ class QuestionsController
     {
         $parametrs = [
             'id' => $_POST['data'],
-            'tresc' => $_POST['tresc'],
+            'content' => $_POST['content'],
             'status' => $_POST['status']
         ];
 
@@ -81,7 +81,7 @@ class QuestionsController
     {
         $data = [
             'question' => App::get('database')->select('questions', 'id', $_GET['id']),
-            'answers' => App::get('database')->select('answers', 'id_pytania', $_GET['id'])
+            'answers' => App::get('database')->select('answers', 'answer_id', $_GET['id'])
         ];
 
         return view('questions.edit', compact('data'));
@@ -94,7 +94,7 @@ class QuestionsController
      */
     public function delete()
     {
-        ($_POST['usun'] == 1) ?  Question::delete($_POST['checkbox']) : App::get('database')->deleteAll('questions');
+        ($_POST['delete'] == 1) ?  Question::delete($_POST['checkbox']) : App::get('database')->deleteAll('questions');
         return redirect('panel');
     }
 }

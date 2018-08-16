@@ -13,8 +13,8 @@
             </div>
 
             <div class="form-group">
-                <label for="grupa">Grupa:</label>
-                <select name="grupa">
+                <label for="role">Grupa:</label>
+                <select name="role">
                     <option <?php if ($trader[0]->role_id == 1) { ?> selected="selected" <?php } ?> value="1">Administrator</option>
                     <option <?php if ($trader[0]->role_id == 2) { ?> selected="selected" <?php } ?> value="2">Handlowiec</option>
                 </select>
@@ -26,8 +26,8 @@
             </div>
 
             <div class="form-group">
-                <label for="telefon">Telefon:</label>
-                <input type="text" class="form-control" id="telefon" name="telefon" pattern="[0-9]+" value="<?= $trader[0]->phone_number ?>" maxlength="15" required>
+                <label for="phone">Telefon:</label>
+                <input type="text" class="form-control" id="phone" name="phone" pattern="[0-9]+" value="<?= $trader[0]->phone_number ?>" maxlength="15" required>
             </div>
 
             <div class="form-group">

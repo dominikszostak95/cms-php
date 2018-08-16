@@ -7,10 +7,10 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class User
 {
-    protected $name;
-    protected $email;
-    protected $password;
-    protected $phoneNumber;
+    private $name;
+    private $email;
+    private $password;
+    private $phoneNumber;
 
     public function __construct($name, $email, $password, $phoneNumber)
     {
@@ -18,6 +18,27 @@ class User
         $this->email = $email;
         $this->password = password_hash($password, PASSWORD_BCRYPT);
         $this->phoneNumber = $phoneNumber;
+    }
+
+    public static function show()
+    {
+        return App::get('database')->selectAll('users');
+    }
+
+    public function store()
+    {
+        App::get('database')->insert('users', [
+            'role_id' => 1,
+            'name' => "'{$this->name}'",
+            'email' => "'{$this->email}'",
+            'password' => "'{$this->password}'",
+            'phone_number' => "'{$this->phoneNumber}'",
+            'created_at' => 'NOW()'
+        ]);
+
+        session_start();
+        $_SESSION['loggedIn'] = true;
+        $_SESSION['login_user'] = $this->email;
     }
 
     public static function login($login, $pass)
@@ -39,10 +60,6 @@ class User
         }
     }
 
-    public static function show()
-    {
-        return App::get('database')->selectAll('users');
-    }
 
     public static function logout()
     {
@@ -51,10 +68,16 @@ class User
         session_destroy();
     }
 
-
     public static function traders()
     {
         return App::get('database')->select('users', 'role_id', 2);
+    }
+
+    public static function changePassword($id, $passsword)
+    {
+        $pass = password_hash($passsword, PASSWORD_BCRYPT);
+        $sql = "update users set password = '{$pass}' where id = {$id};";
+        App::get('database')->executeUpdate($sql);
     }
 
     public static function sendPassword($email)
@@ -84,10 +107,9 @@ class User
             $mail->Password = 'dumelu10';
 
             $mail->setFrom('ddumel55@gmail.com', 'Sklep Komputerowy');
-            $mail->Subject = 'Reset hasła';//Message subject
+            $mail->Subject = 'Reset hasła';
             $mail->MsgHTML("http://nauka.com/reset?id={$user[0]->id}");
             $mail->addAddress("{$user[0]->email}", 'Dominik');
-
 
             if (!$mail->send()) {
                 die("Mailer Error: " . $mail->ErrorInfo);
@@ -97,28 +119,5 @@ class User
         } else {
             die("Nie znaleziono użytkownika o podanym adresie email.");
         }
-    }
-
-    public static function changePassword($id, $passsword)
-    {
-        $pass = password_hash($passsword, PASSWORD_BCRYPT);
-        $sql = "update users set password = '{$pass}' where id = {$id};";
-        App::get('database')->executeUpdate($sql);
-    }
-
-    public function store()
-    {
-        App::get('database')->insert('users', [
-            'role_id' => 1,
-            'name' => "'{$this->name}'",
-            'email' => "'{$this->email}'",
-            'password' => "'{$this->password}'",
-            'phone_number' => "'{$this->phoneNumber}'",
-            'created_at' => 'NOW()'
-        ]);
-
-        session_start();
-        $_SESSION['loggedIn'] = true;
-        $_SESSION['login_user'] = $this->email;
     }
 }

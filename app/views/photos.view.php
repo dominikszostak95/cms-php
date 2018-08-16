@@ -8,11 +8,11 @@
         <h3>Zdjęcia: </h3>
         <table>
             <form method="POST" action="/photos/delete">
-                <select name="usun">
+                <select name="delete">
                     <option value="1">Usuń zaznaczone</option>
                     <option value="2">Usuń wszystkie</option>
                 </select>
-                <input type="submit" name="delete" value="Wykonaj"/>
+                <input type="submit" name="wykonaj" value="Wykonaj"/>
             <tr>
                 <td> </td>
                 <td>ID</td>	<td>Nazwa pliku</td>
@@ -23,9 +23,9 @@
             <?php foreach ($photos as $photo) : ?>
                 <tr>
                     <td> <input type="checkbox" name="checkbox[]" value="<?= $photo->id ?>"> </td>
-                    <td><?= $photo->id ?></td> <td><?= $photo->nazwa ?></td>
-                    <td><?= $photo->plik ?></td> <td><?= $photo->name ?></td>
-                    <td><?= $photo->typ ?></td> <td><?= $photo->created_at ?></td>
+                    <td><?= $photo->id ?></td> <td><?= $photo->name ?></td>
+                    <td><?= $photo->file ?></td> <td><?= $photo->uName ?></td>
+                    <td><?= $photo->type ?></td> <td><?= $photo->created_at ?></td>
                     <td> <a href="/photos/edit?id=<?= $photo->id ?>">Zmień nazwę</a> </td>
                 </tr>
             <?php endforeach; ?>

@@ -5,9 +5,9 @@ namespace App\Models;
 
 class File
 {
-    protected $file;
-    protected $target_dir;
-    protected $target_file;
+    private $file;
+    private $target_dir;
+    private $target_file;
 
     public function __construct($file, $target_dir, $target_file)
     {

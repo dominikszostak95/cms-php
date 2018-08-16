@@ -41,9 +41,9 @@ class PhotosController
         $file = new File($_FILES["image"], "uploads/", "uploads/" . basename($_FILES["image"]["name"]));
 
         $photo = new Photo(
-            $_POST['nazwa'],
+            $_POST['name'],
             $_FILES['image']['name'],
-            $_POST['handlowiec'],
+            $_POST['trader'],
             $_FILES['image']['type'],
             $sciezka = $file->check(),
             1
@@ -51,7 +51,7 @@ class PhotosController
 
         $photo->store();
 
-        return view('panel');
+        return redirect('panel');
     }
 
     /**
@@ -72,7 +72,7 @@ class PhotosController
      */
     public function delete()
     {
-        ($_POST['usun'] == 1) ?  Photo::delete($_POST['checkbox']) : App::get('database')->deleteAll('photos');
+        ($_POST['delete'] == 1) ?  Photo::delete($_POST['checkbox']) : App::get('database')->deleteAll('photos');
         return redirect('panel');
     }
 }

@@ -8,9 +8,9 @@
         <h3>Wyniki ankiet: </h3>
 
             <div class="form-group">
-                <select name="firma" id="firma">
+                <select name="company" id="company">
                     <?php foreach ($data['companies'] as $company) : ?>
-                        <option value="<?= $company->id ?>"><?= $company->nazwa ?></option>
+                        <option value="<?= $company->id ?>"><?= $company->cname ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -26,7 +26,7 @@
     <script>
         $(document).ready(function(){
             $("#results").on("click", function() {
-                $("#show").load("showka?id=" + $('#firma').val());
+                $("#show").load("showka?id=" + $('#company').val());
             });
         });
     </script>

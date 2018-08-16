@@ -6,34 +6,33 @@ use App\Core\App;
 
 class Contact
 {
-    protected $firma;
-    protected $name;
-    protected $stanowisko;
-    protected $telefon;
-    protected $email;
-    protected $zdjecie;
-    protected $handlowiec;
-    protected $przetwarzanie;
-    protected $reklamy;
+    private $company;
+    private $name;
+    private $role;
+    private $phone;
+    private $email;
+    private $photo;
+    private $trader;
+    private $processing;
+    private $ads;
 
-    public function __construct($firma, $name, $stanowisko, $telefon, $email, $zdjecie, $handlowiec, $przetw, $reklamy)
+    public function __construct($company, $name, $role, $phone, $email, $photo, $trader, $processing, $ads)
     {
-        $this->firma = $firma;
+        $this->company = $company;
         $this->name = $name;
-        $this->stanowisko = $stanowisko;
-        $this->telefon = $telefon;
+        $this->role = $role;
+        $this->phone = $phone;
         $this->email = $email;
-        $this->zdjecie = $zdjecie;
-        $this->handlowiec = $handlowiec;
-        $this->przetwarzanie = $przetw;
-        $this->reklamy = $reklamy;
+        $this->photo = $photo;
+        $this->trader = $trader;
+        $this->processing = $processing;
+        $this->ads = $ads;
     }
-
 
     public static function edit($parametrs)
     {
         $sql = "update contacts set company_id = '{$parametrs['firma']}', name = '{$parametrs['name']}', 
-                telefon = '{$parametrs['telefon']}', email = '{$parametrs['email']}'
+                phone = '{$parametrs['telefon']}', email = '{$parametrs['email']}'
                 where id = {$parametrs['id']};";
 
         App::get('database')->executeUpdate($sql);
@@ -48,20 +47,20 @@ class Contact
 
     public static function show()
     {
-        $sql = "select contacts.id, companies.nazwa, contacts.name as cName, 
-                contacts.telefon, contacts.created_at, users.name as uName 
+        $sql = "select contacts.id, companies.cname, contacts.name as fullname, 
+                contacts.phone, contacts.created_at, users.name as username 
                 from contacts inner join companies on contacts.company_id = companies.id
-                inner join users on companies.id_handlowca = users.id;";
+                inner join users on companies.trader_id = users.id;";
 
         return App::get('database')->execute($sql);
     }
 
     public static function showByCompany($id)
     {
-        $sql = "select contacts.id, companies.nazwa, companies.id, contacts.name as cName, 
-                contacts.telefon, contacts.created_at, users.name as uName 
+        $sql = "select contacts.id, companies.cname, contacts.name as fullname, 
+                contacts.phone, contacts.created_at, users.name as username 
                 from contacts inner join companies on contacts.company_id = companies.id
-                inner join users on companies.id_handlowca = users.id where companies.id = {$id};";
+                inner join users on companies.trader_id = users.id where companies.id = {$id};";
 
         return App::get('database')->execute($sql);
     }
@@ -69,15 +68,15 @@ class Contact
     public function store()
     {
         App::get('database')->insert('contacts', [
-            'company_id' => $this->firma,
+            'company_id' => $this->company,
             'name' => "'{$this->name}'",
-            'stanowisko' => "'{$this->stanowisko}'",
-            'telefon' => "'{$this->telefon}'",
+            'role' => "'{$this->role}'",
+            'phone' => "'{$this->phone}'",
             'email' => "'{$this->email}'",
-            'zdjecie' => "'{$this->zdjecie}'",
-            'id_handlowca' => $this->handlowiec,
-            'przetwarzanie' => $this->przetwarzanie,
-            'reklamy' => $this->reklamy,
+            'photo' => "'{$this->photo}'",
+            'trader_id' => $this->trader,
+            'processing' => $this->processing,
+            'ads' => $this->ads,
             'created_at' => 'NOW()'
         ]);
     }

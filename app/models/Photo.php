@@ -6,27 +6,30 @@ use App\Core\App;
 
 class Photo
 {
-    protected $nazwa;
-    protected $plik;
-    protected $handlowiec;
-    protected $typ;
-    protected $sciezka;
-    protected $status;
+    private $name;
+    private $file;
+    private $trader;
+    private $type;
+    private $path;
+    private $status;
 
 
-    public function __construct($nazwa, $plik, $handlowiec, $typ, $sciezka, $status)
+    public function __construct($name, $file, $trader, $type, $path, $status)
     {
-        $this->nazwa = $nazwa;
-        $this->plik = $plik;
-        $this->handlowiec = $handlowiec;
-        $this->typ = $typ;
-        $this->sciezka = $sciezka;
+        $this->name = $name;
+        $this->file = $file;
+        $this->trader = $trader;
+        $this->type = $type;
+        $this->path = $path;
         $this->status = $status;
     }
 
     public static function show()
     {
-        return App::get('database')->innerJoin('users', 'photos', 'users.id', 'photos.id_handlowca');
+        $sql = 'select photos.id, photos.name, photos.file, users.name as uName, photos.type, photos.created_at 
+                from users inner join photos on users.id = photos.trader_id;';
+
+        return App::get('database')->execute($sql);
     }
 
     public static function delete($rows)
@@ -39,11 +42,11 @@ class Photo
     public function store()
     {
         App::get('database')->insert('photos', [
-            'nazwa' => "'{$this->nazwa}'",
-            'plik' => "'{$this->plik}'",
-            'id_handlowca' => $this->handlowiec,
-            'typ' => "'{$this->typ}'",
-            'sciezka' => "'{$this->sciezka}'",
+            'name' => "'{$this->name}'",
+            'file' => "'{$this->file}'",
+            'trader_id' => $this->trader,
+            'type' => "'{$this->type}'",
+            'path' => "'{$this->path}'",
             'status' => $this->status,
             'created_at' => 'NOW()'
         ]);

@@ -37,7 +37,7 @@ class TradersController
     public function store()
     {
         $trader = new Trader(
-            $_POST['grupa'],
+            $_POST['role'],
             $_POST['name'],
             $_POST['email'],
             $_POST['password'],
@@ -69,9 +69,9 @@ class TradersController
     {
         $parametrs = [
             'id' => $_POST['data'],
-            'role_id' => $_POST['grupa'],
+            'role_id' => $_POST['role'],
             'name' => $_POST['name'],
-            'telefon' => $_POST['telefon'],
+            'phone' => $_POST['phone'],
             'email' => $_POST['email']
         ];
 
@@ -87,7 +87,7 @@ class TradersController
      */
     public function delete()
     {
-        ($_POST['usun'] == 1) ?  Trader::delete($_POST['checkbox']) : App::get('database')->deleteAll('users');
+        ($_POST['delete'] == 1) ?  Trader::delete($_POST['checkbox']) : App::get('database')->deleteAll('users');
         return redirect('panel');
     }
 }

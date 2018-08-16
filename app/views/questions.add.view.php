@@ -9,13 +9,13 @@
         <form method="POST" action="/questions/add" enctype="multipart/form-data">
 
             <div class="form-group">
-                <label for="tresc">Treść pytania: </label>
-                <input type="text" class="form-control" id="tresc" name="tresc" maxlength="250" required>
+                <label for="content">Treść pytania: </label>
+                <input type="text" class="form-control" id="content" name="content" maxlength="250" required>
             </div>
 
             <div class="form-group">
-                <label for="kategoria">Kategoria: </label>
-                <select name="kategoria">
+                <label for="category">Kategoria: </label>
+                <select name="category">
                     <?php foreach ($categories as $category) : ?>
                         <option value="<?= $category->id ?>"><?= $category->kategoria ?></option>
                     <?php endforeach; ?>
@@ -23,11 +23,11 @@
             </div>
 
             <div class="form-group">
-                <label for="typ">Typy odpowiedzi:</label><br>
-                <input type="radio" name="typ" value="1">Radio buttony<br>
-                <input type="radio" name="typ" value="2">Check boxy<br>
-                <input type="radio" name="typ" value="3">Input<br>
-                <input type="radio" name="typ" value="4">Text area
+                <label for="type">Typy odpowiedzi:</label><br>
+                <input type="radio" name="type" value="1">Radio buttony<br>
+                <input type="radio" name="type" value="2">Check boxy<br>
+                <input type="radio" name="type" value="3">Input<br>
+                <input type="radio" name="type" value="4">Text area
             </div>
 
             <div class="form-group">

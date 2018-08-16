@@ -46,15 +46,15 @@ class ContactsController
         $file = new File($_FILES["image"], "uploads/", "uploads/" . basename($_FILES["image"]["name"]));
 
         $contact = new Contact(
-            $_POST['firma'],
+            $_POST['company'],
             $_POST['name'],
-            $_POST['stanowisko'],
-            $_POST['telefon'],
+            $_POST['role'],
+            $_POST['phone'],
             $_POST['email'],
-            $sciezka = $file->check(),
-            $_POST['handlowiec'],
-            $przetwarzanie = (isset($_POST['dane'])) ? 1 : 0,
-            $reklamy = (isset($_POST['reklamy'])) ? 1 : 0
+            $path = $file->check(),
+            $_POST['trader'],
+            $processing = (isset($_POST['processing'])) ? 1 : 0,
+            $ads = (isset($_POST['ads'])) ? 1 : 0
         );
 
         $contact->store();
@@ -85,13 +85,13 @@ class ContactsController
     public function edit()
     {
         $parametrs = [
-            'id' => $_POST['data'],
-            'firma' => $_POST['firma'],
+            'id' => $_POST['id'],
+            'firma' => $_POST['company'],
             'name' => $_POST['name'],
-            'telefon' => $_POST['telefon'],
+            'telefon' => $_POST['phone'],
             'email' => $_POST['email'],
-            'przetwarzanie' => (isset($_POST['dane'])) ? 1 : 0,
-            'reklamy' => (isset($_POST['reklamy'])) ? 1 : 0
+            'przetwarzanie' => (isset($_POST['processing'])) ? 1 : 0,
+            'reklamy' => (isset($_POST['ads'])) ? 1 : 0
         ];
 
         Contact::edit($parametrs);
@@ -106,7 +106,7 @@ class ContactsController
      */
     public function delete()
     {
-        ($_POST['usun'] == 1) ?  Contact::delete($_POST['checkbox']) : App::get('database')->deleteAll('contacts');
+        ($_POST['delete'] == 1) ?  Contact::delete($_POST['checkbox']) : App::get('database')->deleteAll('contacts');
         return redirect('panel');
     }
 

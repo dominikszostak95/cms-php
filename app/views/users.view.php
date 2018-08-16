@@ -8,11 +8,11 @@
         <h3>Handlowcy: </h3>
         <table>
             <form method="POST" action="/traders/delete">
-                <select name="usun">
+                <select name="delete">
                     <option value="1">Usuń zaznaczone</option>
                     <option value="2">Usuń wszystkie</option>
                 </select>
-                <input type="submit" name="delete" value="Wykonaj"/>
+                <input type="submit" name="wykonaj" value="Wykonaj"/>
             <tr>
                 <td> </td>
                 <td>ID</td>	<td>E-mail</td>

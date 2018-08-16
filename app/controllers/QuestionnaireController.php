@@ -29,13 +29,13 @@ class QuestionnaireController
      */
     public function showka()
     {
-        $idFirmy = $_GET['id'];
+        $companyId = $_GET['id'];
 
         $data = [
             'questions' => App::get('database')->selectAll('questions'),
             'answers' => App::get('database')->selectAll('answers'),
-            'users_answers' => Questionnaire::usersAnswers($idFirmy),
-            'text_answers' => Questionnaire::textAnswers($idFirmy)
+            'users_answers' => Questionnaire::usersAnswers($companyId),
+            'text_answers' => Questionnaire::textAnswers($companyId)
         ];
         return view('results.show', compact('data'));
     }

@@ -6,40 +6,56 @@ use App\Core\App;
 
 class Company
 {
-    protected $nazwa;
-    protected $adres;
-    protected $miasto;
-    protected $nip;
-    protected $kraj;
-    protected $email;
-    protected $handlowiec;
-    protected $przetwarzanie;
-    protected $reklamy;
+    private $name;
+    private $address;
+    private $city;
+    private $nip;
+    private $country;
+    private $email;
+    private $trader;
+    private $processing;
+    private $ads;
 
-    public function __construct($nazwa, $adres, $miasto, $nip, $kraj, $email, $handlowiec, $przetwarzanie, $reklamy)
+    public function __construct($name, $address, $city, $nip, $country, $email, $trader, $processing, $ads)
     {
-        $this->nazwa = $nazwa;
-        $this->adres = $adres;
-        $this->miasto = $miasto;
-        $this->kraj = $kraj;
+        $this->name = $name;
+        $this->address = $address;
+        $this->city = $city;
+        $this->country = $country;
         $this->nip = $nip;
         $this->email = $email;
-        $this->handlowiec = $handlowiec;
-        $this->przetwarzanie = $przetwarzanie;
-        $this->reklamy = $reklamy;
+        $this->trader = $trader;
+        $this->processing = $processing;
+        $this->ads = $ads;
     }
 
     public static function show()
     {
-        return App::get('database')->innerJoin('users', 'companies', 'companies.id_handlowca', 'users.id');
+        return App::get('database')->innerJoin('users', 'companies', 'companies.trader_id', 'users.id');
+    }
+
+    public function store()
+    {
+        App::get('database')->insert('companies', [
+            'cname' => "'{$this->name}'",
+            'address' => "'{$this->address}'",
+            'city' => "'{$this->city}'",
+            'nip' => "{$this->nip}",
+            'country' => "'{$this->country}'",
+            'email' => "'{$this->email}'",
+            'trader_id' => $this->trader,
+            'processing' => $this->processing,
+            'ads' => $this->ads,
+            'created_at' => 'NOW()'
+        ]);
     }
 
     public static function edit($parametrs)
     {
-        $sql = "update companies set nazwa = '{$parametrs['nazwa']}', adres = '{$parametrs['adres']}', 
-                miasto = '{$parametrs['miasto']}',nip = {$parametrs['nip']}, kraj = '{$parametrs['kraj']}', 
-                email = '{$parametrs['email']}', przetwarzanie = {$parametrs['przetwarzanie']}, 
-                reklamy = {$parametrs['reklamy']};";
+        $sql = "update companies set cname = '{$parametrs['cname']}', address = '{$parametrs['address']}', 
+                city = '{$parametrs['city']}',nip = {$parametrs['nip']}, country = '{$parametrs['country']}', 
+                email = '{$parametrs['email']}', processing = {$parametrs['processing']}, 
+                ads = {$parametrs['ads']} where id = '{$parametrs['id']}';";
 
         App::get('database')->executeUpdate($sql);
     }
@@ -58,19 +74,4 @@ class Company
         return App::get('database')->execute($sql);
     }
 
-    public function store()
-    {
-        App::get('database')->insert('companies', [
-            'nazwa' => "'{$this->nazwa}'",
-            'adres' => "'{$this->adres}'",
-            'miasto' => "'{$this->miasto}'",
-            'nip' => "{$this->nip}",
-            'kraj' => "'{$this->kraj}'",
-            'email' => "'{$this->email}'",
-            'id_handlowca' => $this->handlowiec,
-            'przetwarzanie' => $this->przetwarzanie,
-            'reklamy' => $this->reklamy,
-            'created_at' => 'NOW()'
-        ]);
-    }
 }
